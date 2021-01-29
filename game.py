@@ -1,7 +1,10 @@
 import pygame
 from constants import *
+from layersMap1 import *
+from layersMap2 import *
 from player import Player
 from map import Map
+from camera import Camera
 
 
 
@@ -13,15 +16,18 @@ class Game:
 		self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
 		self.clock = pygame.time.Clock()
 
-		self.all_sprites = pygame.sprite.Group()
 
-		self.player1 = Player(TILESIZE * 5, TILESIZE * 5, TILESIZE, TILESIZE, 5)
-		self.all_sprites.add(self.player1)
-
-		self.map = Map(r1, self.screen)
+		self.array_maps_game = []
 
 
+		self.map = Map(layersMap1, self.screen)
+		self.array_maps_game.append(self.map)
 
+		# self.map2 = Map(layersMap2, self.screen)
+		# self.array_maps_game.append(self.map2)
+
+
+		self.num_map = 0
 
 		self.running = True
 		self.loop()
@@ -37,14 +43,14 @@ class Game:
 
 			self.screen.fill(BLACK)
 
-			self.all_sprites.draw(self.screen)
+			if self.num_map == 0:
+				self.map.update(self.screen)
+				# if self.player1.rect.left > WIDTH:
+				# 	self.map2.update(self.screen, self.player1)
 
-			self.all_sprites.update()
+			# self.all_players.draw(self.screen)
 
-
-
-			self.map.update(self.screen, self.player1)
-
+			# self.all_players.update()
 
 
 
